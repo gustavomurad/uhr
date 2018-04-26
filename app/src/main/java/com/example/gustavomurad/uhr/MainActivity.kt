@@ -1,8 +1,10 @@
 package com.example.gustavomurad.uhr
 
-import android.support.v7.app.AppCompatActivity
+import android.app.TimePickerDialog
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
+
 
 class MainActivity : AppCompatActivity() {
     private var mHour: String = "00"
@@ -59,6 +61,25 @@ class MainActivity : AppCompatActivity() {
 
         btnSayTime.setOnClickListener {
             displayTime.text = getTime()
+        }
+
+        textViewSetTime.setOnClickListener {
+            val mTimeSetListener = TimePickerDialog.OnTimeSetListener { _ , hour, minute ->
+                mHour = hour.toString()
+                mMinute = minute.toString()
+
+                textMinute.text = mMinute
+                textHour.text = mHour
+            }
+
+            val dialog = TimePickerDialog(this,
+                    mTimeSetListener,
+                    mHour.toInt(),
+                    mMinute.toInt(),
+                    true)
+
+            dialog.show()
+
         }
     }
 
